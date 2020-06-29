@@ -37,20 +37,20 @@ $lang = array_merge($lang, array(
 	// General config options
 	'ACP_PMWELCOME'					=> 'Welcome message',
 	'ACP_PMWELCOME_EXPLAIN'			=> 'You can specify the text of the personal message that will be sent to the user upon registration.',
-	'ACP_PMWELCOME_SETTINGS'		=> 'Settings welcome message',
+	'ACP_PMWELCOME_SETTINGS'		=> 'Settings private message welcome',
 	'ACP_PMWELCOME_USER'			=> 'Sender',
 	'ACP_PMWELCOME_USER_EXPLAIN'	=> 'User From, on behalf of which will be sent the private message to the new board member.',
 	'ACP_PMWELCOME_SUBJECT'			=> 'Welcome subject',
-	'ACP_PMWELCOME_TEXT'			=> 'Text of the greeting message',
+	'ACP_PMWELCOME_TEXT'			=> 'Text of the welcome message',
 	'ACP_PMWELCOME_TEXT_EXPLAIN'	=> 'You can use bbcode and smilies, and the token {USERNAME} to replace the name of the user who receives a private message as well as {SENDER} to insert the senders name.',
-	'ACP_PMWELCOME_PREVIEW'			=> 'PM Welcome Text - Preview',
-	'ACP_PMWELCOME_CONFIG_SAVED'	=> 'PM Welcome config was saved',
+	'ACP_PMWELCOME_PREVIEW'			=> 'Private message welcome Text - Preview',
+	'ACP_PMWELCOME_CONFIG_SAVED'	=> 'Private message welcome config was saved',
 	'TOO_SHORT_PMWELCOME_SUBJECT'	=> 'The value for the welcome subject is too short',
 	'TOO_LONG_PMWELCOME_SUBJECT'	=> 'The value for the welcome subject is too long',
-	'TOO_SHORT_PMWELCOME_POST_TEXT'	=> 'The value for the PM text is too short',
-	'TOO_LONG_PMWELCOME_POST_TEXT'	=> 'The value for the PM text is too long',
+	'TOO_SHORT_PMWELCOME_POST_TEXT'	=> 'The value for the private message welcome text is too short',
+	'TOO_LONG_PMWELCOME_POST_TEXT'	=> 'The value for the private message welcome text is too long',
 	// Log entries
-	'LOG_CONFIG_PMWELCOME_ADMIN'		=> '<strong>Altered PM Welcome extension page settings</strong>',
-	'LOG_PMWELCOME_CONFIG_UPDATE'		=> '<strong>Updated PM Welcome config settings</strong>',
+	'LOG_CONFIG_PMWELCOME_ADMIN'		=> '<strong>Altered private message welcome extension page settings</strong>',
+	'LOG_PMWELCOME_CONFIG_UPDATE'		=> '<strong>Updated Private message welcome config settings</strong>',
 
 ));
