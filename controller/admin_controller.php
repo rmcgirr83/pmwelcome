@@ -190,7 +190,7 @@ class admin_controller
 		// do the main sql query
 		$sql = 'SELECT username
 			FROM ' . USERS_TABLE . '
-			WHERE user_id = ' . $userid;
+			WHERE user_id = ' . (int) $userid;
 		$result = $this->db->sql_query($sql);
 		$sender_name = $this->db->sql_fetchfield('username');
 		$this->db->sql_freeresult($result);
