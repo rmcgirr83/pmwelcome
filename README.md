@@ -23,7 +23,7 @@ git clone https://github.com/rmcgirr83/pmwelcome.git ext/apwa/pmwelcome/
 ```
 
 ### 2. activate
-Go to admin panel -> tab customise -> Manage extensions -> enable PM Welcome
+Go to admin panel -> tab customise -> Manage extensions -> enable Private Message Welcome
 
 
 ## Update instructions:
