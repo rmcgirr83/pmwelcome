@@ -1,0 +1,24 @@
+services:
+    apwa.pmwelcome.admin.controller:
+        class: apwa\pmwelcome\controller\admin_controller
+        arguments:
+            - '@config'
+            - '@config_text'
+            - '@dbal.conn'
+            - '@request'
+            - '@template'
+            - '@user'
+            - '@log'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+    apwa.pmwelcome.listener:
+        class: apwa\pmwelcome\event\listener
+        arguments:
+            - '@user'
+            - '@config'
+            - '@config_text'
+            - '@dbal.conn'            
+            - '%core.root_path%'
+            - '%core.php_ext%'
+        tags:
+            - { name: event.listener }

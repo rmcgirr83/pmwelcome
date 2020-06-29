@@ -1,0 +1,36 @@
+{
+    "name": "apwa/pmwelcome",
+    "type": "phpbb-extension",
+    "description": "Welcome PM for registration and activation",
+    "homepage": "http://phpbbguru.net",
+    "version": "1.2.0",
+    "time": "2020-06-28",
+    "license": "GPL-2.0-only",
+    "authors": [
+        {
+            "name": "RMcGirr83",
+            "role": "Developer"
+        },	
+        {
+            "name": "Anvar",
+            "email": "anvar.all@mail.ru",
+            "homepage": "http://bb3.mobi",
+            "role": "Previous Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "phpbb/phpbb": ">=3.2"
+    },
+    "extra": {
+        "display-name": "PM Welcome",
+        "soft-require": {
+            "phpbb/phpbb": ">=3.2"
+        },
+        "version-check": {
+            "host": "www.phpbb.com",
+            "directory": "/customise/db/extension/private_message_welcome",
+            "filename": "version_check"
+        }
+    }
+}
