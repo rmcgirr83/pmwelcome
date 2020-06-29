@@ -12,8 +12,6 @@ Link for settings for the extension will show on the General tab under Board Con
 
 [![Build Status](https://travis-ci.org/rmcgirr83/PMWelcome.svg?branch=master)](https://travis-ci.org/rmcgirr83/PMWelcome)
 
-![Screenshot](viewtopic.jpg)
-
 ## Installation
 
 ### 1. clone

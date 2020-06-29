@@ -48,7 +48,7 @@ class v_1_2_0 extends \phpbb\db\migration\migration
 			// Remove config text
 			array('config_text.remove', array('pmwelcome_text_uid')),
 			array('config_text.remove', array('pmwelcome_text_bitfield')),
-			array('config_text.remove', array('pmwelcome_text_flags')),			
+			array('config_text.remove', array('pmwelcome_text_flags')),
 		);
 	}
 }

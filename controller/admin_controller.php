@@ -146,7 +146,7 @@ class admin_controller
 
 		$pmwelcome_text_preview = '';
 		if ($this->request->is_set_post('preview'))
-		{	
+		{
 			$pmwelcome_text_preview = (!empty($this->config['pmwelcome_sender'])) ? str_replace('{SENDER}', $this->config['pmwelcome_sender'], $pmwelcome_post_text) : $pmwelcome_post_text;
 			generate_text_for_storage(
 				$pmwelcome_text_preview,
@@ -156,7 +156,7 @@ class admin_controller
 				!$this->request->variable('disable_bbcode', false),
 				!$this->request->variable('disable_magic_url', false),
 				!$this->request->variable('disable_smilies', false)
-			);			
+			);
 			$pmwelcome_text_preview = generate_text_for_display($pmwelcome_text_preview, $pmwelcome_text_uid, $pmwelcome_text_bitfield, $pmwelcome_text_flags);
 		}
 
@@ -194,7 +194,7 @@ class admin_controller
 		$result = $this->db->sql_query($sql);
 		$sender_name = $this->db->sql_fetchfield('username');
 		$this->db->sql_freeresult($result);
-		
+
 		$this->config->set('pmwelcome_sender', (string) $sender_name, true);
 		$this->config->set('pmwelcome_user', (int) $userid);
 		$this->config->set('pmwelcome_subject', $this->request->variable('pmwelcome_subject', '', true));

@@ -10,7 +10,6 @@
 
 namespace apwa\pmwelcome\acp;
 
-
 class pmwelcome_info
 {
 	function module()

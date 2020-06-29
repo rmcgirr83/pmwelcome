@@ -48,7 +48,7 @@ $lang = array_merge($lang, array(
 	'TOO_SHORT_PMWELCOME_SUBJECT'	=> 'The value for the welcome subject is too short',
 	'TOO_LONG_PMWELCOME_SUBJECT'	=> 'The value for the welcome subject is too long',
 	'TOO_SHORT_PMWELCOME_POST_TEXT'	=> 'The value for the PM text is too short',
-	'TOO_LONG_PMWELCOME_POST_TEXT'	=> 'The value for the PM text is too long',	
+	'TOO_LONG_PMWELCOME_POST_TEXT'	=> 'The value for the PM text is too long',
 	// Log entries
 	'LOG_CONFIG_PMWELCOME_ADMIN'		=> '<strong>Altered PM Welcome extension page settings</strong>',
 	'LOG_PMWELCOME_CONFIG_UPDATE'		=> '<strong>Updated PM Welcome config settings</strong>',
