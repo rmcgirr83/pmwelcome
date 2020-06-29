@@ -23,7 +23,7 @@
         "phpbb/phpbb": ">=3.2"
     },
     "extra": {
-        "display-name": "PM Welcome",
+        "display-name": "Private message welcome",
         "soft-require": {
             "phpbb/phpbb": ">=3.2"
         },
