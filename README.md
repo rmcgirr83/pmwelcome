@@ -1,4 +1,4 @@
-PM Welcom
+PM Welcome
 ===============
 
 phpBB PM Welcome
