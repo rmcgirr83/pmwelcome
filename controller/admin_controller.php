@@ -191,8 +191,6 @@ class admin_controller
 			$pmwelcome_subject = $check_row['pmwelcome_subject'];
 		}
 
-
-
 		$this->template->assign_vars(array(
 			'PMWELCOME_ERROR'			=> (sizeof($error)) ? implode('<br />', $error) : false,
 
