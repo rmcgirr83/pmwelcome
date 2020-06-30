@@ -49,6 +49,8 @@ $lang = array_merge($lang, array(
 	'TOO_LONG_PMWELCOME_SUBJECT'	=> 'The value for the welcome subject is too long',
 	'TOO_SHORT_PMWELCOME_POST_TEXT'	=> 'The value for the private message welcome text is too short',
 	'TOO_LONG_PMWELCOME_POST_TEXT'	=> 'The value for the private message welcome text is too long',
+	'TOO_SMALL_PMWELCOME_SENDER'	=> 'The number chosen for the sender is too small',
+	'TOO_LARGE_PMWELCOME_SENDER'	=> 'The number chosen for the sender is too large',
 	// Log entries
 	'LOG_CONFIG_PMWELCOME_ADMIN'		=> '<strong>Altered private message welcome extension page settings</strong>',
 	'LOG_PMWELCOME_CONFIG_UPDATE'		=> '<strong>Updated Private message welcome config settings</strong>',
