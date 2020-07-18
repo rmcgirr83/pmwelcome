@@ -5,20 +5,19 @@ services:
             - '@config'
             - '@config_text'
             - '@dbal.conn'
-            - '@language'
-            - '@log'
             - '@request'
             - '@template'
             - '@user'
+            - '@log'
             - '%core.root_path%'
             - '%core.php_ext%'
     apwa.pmwelcome.listener:
         class: apwa\pmwelcome\event\listener
         arguments:
+            - '@user'
             - '@config'
             - '@config_text'
-            - '@dbal.conn'
-            - '@user'
+            - '@dbal.conn'            
             - '%core.root_path%'
             - '%core.php_ext%'
         tags:
