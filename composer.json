@@ -3,8 +3,8 @@
     "type": "phpbb-extension",
     "description": "Welcome PM for registration and activation",
     "homepage": "http://phpbbguru.net",
-    "version": "1.2.0",
-    "time": "2020-06-28",
+    "version": "1.2.1",
+    "time": "2020-07-18",
     "license": "GPL-2.0-only",
     "authors": [
         {
@@ -19,7 +19,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=7.1",
         "phpbb/phpbb": ">=3.2"
     },
     "extra": {
