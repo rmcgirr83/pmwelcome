@@ -1,14 +1,10 @@
 {% INCLUDE 'overall_header.html' %}
-<script type="text/javascript">
-// <![CDATA[
-
+<script>
 	var form_name = 'acp_board';
 	var text_name = 'pmwelcome_post_text';
 	var load_draft = false;
 	var upload = false;
 	var imageTag = false;
-
-// ]]>
 </script>
 
 <a id="maincontent"></a>
@@ -34,7 +30,7 @@
 {% endif %}
 <fieldset>
 	<legend>{{ lang('ACP_PMWELCOME_TEXT') }}</legend>
-	<p>{{ lang('ACP_PMWELCOME_TEXT_EXPLAIN') }}</p>	
+	<p>{{ lang('ACP_PMWELCOME_TEXT_EXPLAIN') }}</p>
 		{% INCLUDE 'acp_posting_buttons.html' %}
 		<dl class="responsive-columns">
 			<dt style="width: 90px;" id="color_palette_placeholder" data-orientation="v" data-height="12" data-width="15" data-bbcode="true">
@@ -42,7 +38,7 @@
 
 		<dd style="margin-{{ S_CONTENT_FLOW_BEGIN }}: 90px;">
 			<textarea name="pmwelcome_post_text" rows="26" cols="70" style="width: 95%;" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="initInsertions();" data-bbcode="true" class="inputbox">{{ PMWELCOME_EDIT }}</textarea>
-		</dd>	
+		</dd>
 	</dl>
 	<fieldset class="submit-buttons">
 		<input class="button2" type="submit" name="preview" value="{{ lang('PREVIEW') }}" />

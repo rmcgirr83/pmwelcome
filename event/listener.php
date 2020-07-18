@@ -9,12 +9,18 @@
 
 namespace apwa\pmwelcome\event;
 
+/*
+* ignore
+*/
+use phpbb\config\config;
+use phpbb\config\db_text;
+use phpbb\db\driver\driver_interface;
+use phpbb\user;
+
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class listener implements EventSubscriberInterface
 {
-	/** @var \phpbb\user */
-	protected $user;
 
 	/** @var \phpbb\config\config */
 	protected $config;
@@ -25,6 +31,9 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
+	/** @var \phpbb\user */
+	protected $user;
+
 	/** @var string phpbb_root_path */
 	protected $phpbb_root_path;
 
@@ -34,29 +43,26 @@ class listener implements EventSubscriberInterface
 	/**
 	* Constructor
 	*
-	* @param \phpbb\user											$user				User object
 	* @param \phpbb\config\config									$config				Config object
 	* @param \phpbb\config\db_text 									$config_text		Config text object
 	* @param \phpbb\db\driver\driver_interface						$db					Database object
-	* @param \phpbb\request\request									$request			Request object
-	* @param \phpbb\template\template								$template			Template object
-	* @param \phpbb\log\log											$log				Log object
-	* @param string													$root_path			phpBB root path
+	* @param \phpbb\user											$user				User object
+	* @param string													$phpbb_root_path	phpBB root path
 	* @param string													$php_ext			phpEx
 	* @access public
 	*/
 	public function __construct(
-		\phpbb\user $user,
-		\phpbb\config\config $config,
-		\phpbb\config\db_text $config_text,
-		\phpbb\db\driver\driver_interface $db,
+		config $config,
+		db_text $config_text,
+		driver_interface $db,
+		user $user,
 		$phpbb_root_path,
 		$php_ext)
 	{
-		$this->user = $user;
 		$this->config = $config;
 		$this->config_text = $config_text;
 		$this->db = $db;
+		$this->user = $user;
 		$this->phpbb_root_path = $phpbb_root_path;
 		$this->php_ext = $php_ext;
 	}
@@ -131,18 +137,18 @@ class listener implements EventSubscriberInterface
 	{
 		if (!is_array($user_to))
 		{
-			$user_to = array($user_to);
+			$user_to = [$user_to];
 		}
 
 		$user_id = $this->config['pmwelcome_user'];
 		$subject = $this->config['pmwelcome_subject'];
 
-		$pmwelcome_text_data		= $this->config_text->get_array(array(
+		$pmwelcome_text_data		= $this->config_text->get_array([
 			'pmwelcome_post_text',
 			'pmwelcome_text_uid',
 			'pmwelcome_text_bitfield',
 			'pmwelcome_text_flags',
-		));
+		]);
 
 		$pmwelcome_text	= $pmwelcome_text_data['pmwelcome_post_text'];
 		$uid			= $pmwelcome_text_data['pmwelcome_text_uid'];
@@ -159,7 +165,7 @@ class listener implements EventSubscriberInterface
 			include($this->phpbb_root_path . 'includes/functions_privmsgs.' . $this->php_ext);
 		}
 
-		$pm_data = array(
+		$pm_data = [
 			'from_user_id'		=> $user_id,
 			'from_user_ip'		=> $this->user->ip,
 			'enable_sig'		=> false,
@@ -169,7 +175,7 @@ class listener implements EventSubscriberInterface
 			'icon_id'			=> 0,
 			'bbcode_bitfield'	=> $bitfield,
 			'bbcode_uid'		=> $uid,
-		);
+		];
 
 		// need the username in all cases
 		$sql = 'SELECT username, user_id
@@ -182,7 +188,7 @@ class listener implements EventSubscriberInterface
 			// Loop through our list of users
 			$pmwelcome_text = str_replace('{USERNAME}', $row['username'], $pmwelcome_text);
 
-			$pm_data['address_list'] = array('u' => array($row['user_id'] => 'to'));
+			$pm_data['address_list'] = ['u' => [$row['user_id'] => 'to']];
 			$pm_data['message'] = $pmwelcome_text;
 
 			submit_pm('post', $subject, $pm_data, false);
