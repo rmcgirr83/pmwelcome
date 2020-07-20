@@ -212,7 +212,7 @@ class admin_controller
 			'SENDER_MAX'				=> $sender_max_id,
 			'SENDER_LINK'				=> $user_link,
 
-			'PMWELCOME_USER'			=> $this->request->variable('pmwelcome_user', 0),
+			'PMWELCOME_USER'			=> $this->request->variable('pmwelcome_user', $this->config['pmwelcome_user']),
 			'PMWELCOME_SUBJECT'			=> $pmwelcome_subject,
 
 			'S_BBCODE_ALLOWED'		=> true,
