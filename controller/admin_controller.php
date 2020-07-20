@@ -127,11 +127,15 @@ class admin_controller
 		$pmwelcome_text_uid			= $pmwelcome_data['pmwelcome_text_uid'];
 		$pmwelcome_text_flags		= $pmwelcome_data['pmwelcome_text_flags'];
 
-		$sender_count = (int) $this->pm_welcome_sender_count();
+		$sender_max_id = (int) $this->pm_welcome_sender_max_id();
 
 		$sender_info = $this->pm_welcome_user_name($this->request->variable('pmwelcome_user', $this->config['pmwelcome_user']));
 
-		if (!isset($sender_info['error']))
+		if (isset($sender_info['error']))
+		{
+			$user_link = $sender_info['error'];
+		}
+		else
 		{
 			$user_link = '<a href="' . append_sid("{$this->phpbb_root_path}memberlist.$this->php_ext", 'mode=viewprofile&amp;u=' . $sender_info['user_id']) . '" target="_blank">' . $sender_info['username'] . '</a>';
 		}
@@ -205,10 +209,10 @@ class admin_controller
 
 			'PMWELCOME_EDIT'			=> $pmwelcome_edit['text'],
 			'PMWELCOME_TEXT_PREVIEW'	=> $pmwelcome_text_preview,
-			'SENDER_MAX'				=> $sender_count,
+			'SENDER_MAX'				=> $sender_max_id,
 			'SENDER_LINK'				=> $user_link,
 
-			'PMWELCOME_USER'			=> $sender_info['user_id'],
+			'PMWELCOME_USER'			=> $this->request->variable('pmwelcome_user', 0),
 			'PMWELCOME_SUBJECT'			=> $pmwelcome_subject,
 
 			'S_BBCODE_ALLOWED'		=> true,
@@ -232,7 +236,7 @@ class admin_controller
 	*/
 	private function pm_welcome_user_name($sender_id)
 	{
-		$sender = array();
+		$sender = [];
 
 		$sql = 'SELECT user_id, username
 			FROM ' . USERS_TABLE . "
@@ -241,31 +245,33 @@ class admin_controller
 		$sender = $this->db->sql_fetchrow($result);
 		$this->db->sql_freeresult($result);
 
-		if (!$sender['username'])
+		if (!isset($sender['username']))
 		{
-			$sender['error'] = $this->language->lang('NO_USER');
+			$sender['error'] = $this->language->lang('ACP_PMWELCOME_NO_USER');
 		}
 
 		return $sender;
 	}
 
 	/**
-	* pm_welcome_sender_count
+	* pm_welcome_sender_max_id
 	*
-	* @return int				a count of users of the forum used to ensure validation of sender
+	* @return int				The maximum userid on the forum
 	* @access private
 	*/
-	private function pm_welcome_sender_count()
+	private function pm_welcome_sender_max_id()
 	{
-		$sender_count = '';
+		$sender_max_id = '';
+		$ignored_users = [USER_IGNORE];
 
-		$sql = 'SELECT COUNT(user_id) as user_count
-			FROM ' . USERS_TABLE;
+		$sql = 'SELECT MAX(user_id) as max_id
+			FROM ' . USERS_TABLE . '
+			WHERE ' . $this->db->sql_in_set('user_type', $ignored_users, true);
 		$result = $this->db->sql_query($sql);
-		$sender_count = $this->db->sql_fetchfield('user_count');
+		$sender_max_id = $this->db->sql_fetchfield('max_id');
 		$this->db->sql_freeresult($result);
 
-		return (int) $sender_count;
+		return (int) $sender_max_id;
 	}
 	/**
 	 * Set page url

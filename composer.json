@@ -3,14 +3,14 @@
     "type": "phpbb-extension",
     "description": "Welcome PM for registration and activation",
     "homepage": "http://phpbbguru.net",
-    "version": "1.2.1",
-    "time": "2020-07-18",
+    "version": "1.2.2",
+    "time": "2020-07-20",
     "license": "GPL-2.0-only",
     "authors": [
         {
             "name": "RMcGirr83",
             "role": "Developer"
-        },	
+        },
         {
             "name": "Anvar",
             "email": "anvar.all@mail.ru",
