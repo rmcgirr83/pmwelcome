@@ -73,7 +73,7 @@ class admin_controller
 	* @param \phpbb\request\request									$request			Request object
 	* @param \phpbb\template\template								$template			Template object
 	* @param \phpbb\user											$user				User object
-	* @param string													$phpbb_root_path		phpBB root path
+	* @param string													$phpbb_root_path	phpBB root path
 	* @param string													$php_ext			phpEx
 	* @access public
 	*/
