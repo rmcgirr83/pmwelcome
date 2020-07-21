@@ -37,6 +37,9 @@ class admin_controller
 
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
+	
+	/** @var \phpbb\language\language */
+	protected $language;	
 
 	/** @var \phpbb\log\log */
 	protected $log;
