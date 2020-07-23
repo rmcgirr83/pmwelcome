@@ -103,10 +103,6 @@ class admin_controller
 		{
 			include($this->phpbb_root_path . 'includes/functions_display.' . $this->php_ext);
 		}
-		if (!function_exists('validate_data'))
-		{
-			include($this->phpbb_root_path . 'includes/functions_user.' . $this->php_ext);
-		}
 	}
 
 	public function display_options()
