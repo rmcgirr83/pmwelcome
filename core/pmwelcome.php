@@ -58,7 +58,7 @@ class pmwelcome
 
 		$sql = 'SELECT user_id, username
 			FROM ' . USERS_TABLE . "
-			WHERE user_id = " . (int) $user_id;
+			WHERE user_id = " . (int) $user_id . ' AND user_type <> ' . USER_IGNORE;
 		$result = $this->db->sql_query($sql);
 		$sender_info = $this->db->sql_fetchrow($result);
 		$this->db->sql_freeresult($result);
