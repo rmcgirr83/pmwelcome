@@ -1,0 +1,3 @@
+apwa_pmwelcome_senderinfo:
+    path: /senderinfo/{user_id}
+    defaults: { _controller: apwa.pmwelcome.core:sender_info }

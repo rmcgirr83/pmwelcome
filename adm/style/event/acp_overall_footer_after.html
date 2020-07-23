@@ -1,0 +1,27 @@
+{% if AJAX_SENDER_LINK %}
+<script>
+var AJAX_SENDER_LINK = "{{ AJAX_SENDER_LINK }}";
+var ERROR = "{{ lang('ACP_PMWELCOME_NO_USER')|escape('js') }}";
+(function($) { // Avoid conflicts with other libraries
+	'use strict';
+	$("#pmwelcome_user").change(function () {
+		var userId = $(this).val();
+        $.ajax({
+            url: AJAX_SENDER_LINK.replace("USER_ID", userId),
+			dataType: 'text',
+			success: function(data){
+				var json = $.parseJSON(data);
+				if (json.error)
+				{
+					$('#sender_link').html(''+ERROR+'').show();
+				}
+				else
+				{
+					$('#sender_link').html(''+json.sender_link+'').show();
+				}
+			}
+		});
+	});
+})(jQuery);
+</script>
+{% endif %}

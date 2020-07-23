@@ -3,6 +3,7 @@
 *
 * @package PM Welcome
 * @copyright (c) 2020 RMcGirr83
+* @copyright BB3.MOBi (c) 2015 Anvar http://apwa.ru
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -15,11 +16,13 @@ namespace apwa\pmwelcome\controller;
 use phpbb\config\config;
 use phpbb\config\db_text;
 use phpbb\db\driver\driver_interface;
+use phpbb\controller\helper;
 use phpbb\language\language;
 use phpbb\log\log;
 use phpbb\request\request;
 use phpbb\template\template;
 use phpbb\user;
+use apwa\pmwelcome\core\pmwelcome as pmwelcome;
 
 class admin_controller
 {
@@ -37,8 +40,8 @@ class admin_controller
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
-	/** @var \phpbb\language\language */
-	protected $language;
+	/** @var \phpbb\controller\helper */
+	protected $helper;
 
 	/** @var \phpbb\log\log */
 	protected $log;
@@ -51,6 +54,9 @@ class admin_controller
 
 	/** @var \phpbb\user */
 	protected $user;
+
+	/* @var pmwelcome */
+	protected $pmwelcome;
 
 	/** @var string phpBB root path */
 	protected $phpbb_root_path;
@@ -67,11 +73,13 @@ class admin_controller
 	* @param \phpbb\config\config									$config				Config object
 	* @param \phpbb\config\db_text 									$config_text		Config text object
 	* @param \phpbb\db\driver\driver_interface						$db					Database object
+	* @param helper													$helper				Controller helper object
 	* @param \phpbb\language\language								$language			Language object
 	* @param \phpbb\log\log											$log				Log object
 	* @param \phpbb\request\request									$request			Request object
 	* @param \phpbb\template\template								$template			Template object
 	* @param \phpbb\user											$user				User object
+	* @param pmwelcome												$pmwelcome			Methods for the extension
 	* @param string													$phpbb_root_path	phpBB root path
 	* @param string													$php_ext			phpEx
 	* @access public
@@ -80,28 +88,36 @@ class admin_controller
 			config $config,
 			db_text $config_text,
 			driver_interface $db,
+			helper $helper,
 			language $language,
 			log $log,
 			request $request,
 			template $template,
 			user $user,
+			pmwelcome $pmwelcome,
 			$phpbb_root_path,
 			$php_ext)
 	{
 		$this->config = $config;
 		$this->config_text = $config_text;
 		$this->db = $db;
+		$this->helper = $helper;
 		$this->language = $language;
 		$this->log = $log;
 		$this->request = $request;
 		$this->template = $template;
 		$this->user = $user;
+		$this->pmwelcome = $pmwelcome;
 		$this->phpbb_root_path = $phpbb_root_path;
 		$this->php_ext = $php_ext;
 
 		if (!function_exists('display_custom_bbcodes'))
 		{
 			include($this->phpbb_root_path . 'includes/functions_display.' . $this->php_ext);
+		}
+		if (!function_exists('validate_data'))
+		{
+			include($this->phpbb_root_path . 'includes/functions_user.' . $this->php_ext);
 		}
 	}
 
@@ -127,7 +143,7 @@ class admin_controller
 
 		$sender_max_id = (int) $this->pm_welcome_sender_max_id();
 
-		$sender_info = $this->pm_welcome_user_name($this->request->variable('pmwelcome_user', $this->config['pmwelcome_user']));
+		$sender_info = $this->pmwelcome->sender_info($this->request->variable('pmwelcome_user', $this->config['pmwelcome_user']));
 
 		if (isset($sender_info['error']))
 		{
@@ -139,7 +155,7 @@ class admin_controller
 		}
 
 		$pmwelcome_subject = $this->request->variable('pmwelcome_subject', $this->config['pmwelcome_subject'], true);
-
+		$pmwelcome_edit = generate_text_for_edit($pmwelcome_post_text, $pmwelcome_text_uid, $pmwelcome_text_flags);
 		$pmwelcome_post_text = $this->request->variable('pmwelcome_post_text', $pmwelcome_post_text, true);
 
 		if ($this->request->is_set_post('submit')  || $this->request->is_set_post('preview'))
@@ -191,7 +207,7 @@ class admin_controller
 			$pmwelcome_text_preview = (!isset($sender_info['error'])) ? str_replace('{SENDER}', $sender_info['username'], $pmwelcome_post_text) : $pmwelcome_post_text;
 			generate_text_for_storage(
 				$pmwelcome_text_preview,
-				$pmwelcome_text_uid,
+				$pmwelcome_text_uid	,
 				$pmwelcome_text_bitfield,
 				$pmwelcome_text_flags,
 				!$this->request->variable('disable_bbcode', false),
@@ -199,9 +215,8 @@ class admin_controller
 				!$this->request->variable('disable_smilies', false)
 			);
 			$pmwelcome_text_preview = generate_text_for_display($pmwelcome_text_preview, $pmwelcome_text_uid, $pmwelcome_text_bitfield, $pmwelcome_text_flags);
+			$pmwelcome_edit = generate_text_for_edit($pmwelcome_post_text, $pmwelcome_text_uid, $pmwelcome_text_flags);
 		}
-
-		$pmwelcome_edit = generate_text_for_edit($pmwelcome_post_text, $pmwelcome_text_uid, $pmwelcome_text_flags);
 
 		$this->template->assign_vars(array(
 			'PMWELCOME_ERROR'			=> (sizeof($error)) ? implode('<br />', $error) : false,
@@ -220,36 +235,12 @@ class admin_controller
 			'S_BBCODE_FLASH'		=> false,
 			'S_LINKS_ALLOWED'		=> true,
 
+			'AJAX_SENDER_LINK'		=> $this->helper->route('apwa_pmwelcome_senderinfo', array('user_id' => 'USER_ID')),
+
 			'U_ACTION'				=> $this->u_action,
 		));
 		// Assigning custom bbcodes
 		display_custom_bbcodes();
-	}
-
-	/**
-	* pm_welcome_user_name
-	*
-	* @param sender_id				sender user id
-	* @return array					array of user info or error if not found
-	* @access private
-	*/
-	private function pm_welcome_user_name($sender_id)
-	{
-		$sender = [];
-
-		$sql = 'SELECT user_id, username
-			FROM ' . USERS_TABLE . "
-			WHERE user_id = " . (int) $sender_id;
-		$result = $this->db->sql_query($sql);
-		$sender = $this->db->sql_fetchrow($result);
-		$this->db->sql_freeresult($result);
-
-		if (!isset($sender['username']))
-		{
-			$sender['error'] = $this->language->lang('ACP_PMWELCOME_NO_USER');
-		}
-
-		return $sender;
 	}
 
 	/**
@@ -272,7 +263,6 @@ class admin_controller
 
 		return (int) $sender_max_id;
 	}
-
 	/**
 	 * Set page url
 	 *

@@ -5,11 +5,13 @@ services:
             - '@config'
             - '@config_text'
             - '@dbal.conn'
+            - '@controller.helper'
             - '@language'
             - '@log'
             - '@request'
             - '@template'
             - '@user'
+            - '@apwa.pmwelcome.core'
             - '%core.root_path%'
             - '%core.php_ext%'
     apwa.pmwelcome.listener:
@@ -23,3 +25,12 @@ services:
             - '%core.php_ext%'
         tags:
             - { name: event.listener }
+
+    apwa.pmwelcome.core:
+        class: apwa\pmwelcome\core\pmwelcome
+        arguments:
+            - '@dbal.conn'
+            - '@language'
+            - '@request'
+            - '%core.root_path%'
+            - '%core.php_ext%'
