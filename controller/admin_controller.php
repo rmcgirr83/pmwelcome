@@ -139,7 +139,7 @@ class admin_controller
 		}
 
 		$pmwelcome_subject = $this->request->variable('pmwelcome_subject', $this->config['pmwelcome_subject'], true);
-		$pmwelcome_edit = generate_text_for_edit($pmwelcome_post_text, $pmwelcome_text_uid, $pmwelcome_text_flags);
+
 		$pmwelcome_post_text = $this->request->variable('pmwelcome_post_text', $pmwelcome_post_text, true);
 
 		if ($this->request->is_set_post('submit')  || $this->request->is_set_post('preview'))
@@ -191,7 +191,7 @@ class admin_controller
 			$pmwelcome_text_preview = (!isset($sender_info['error'])) ? str_replace('{SENDER}', $sender_info['username'], $pmwelcome_post_text) : $pmwelcome_post_text;
 			generate_text_for_storage(
 				$pmwelcome_text_preview,
-				$pmwelcome_text_uid	,
+				$pmwelcome_text_uid,
 				$pmwelcome_text_bitfield,
 				$pmwelcome_text_flags,
 				!$this->request->variable('disable_bbcode', false),
@@ -199,8 +199,9 @@ class admin_controller
 				!$this->request->variable('disable_smilies', false)
 			);
 			$pmwelcome_text_preview = generate_text_for_display($pmwelcome_text_preview, $pmwelcome_text_uid, $pmwelcome_text_bitfield, $pmwelcome_text_flags);
-			$pmwelcome_edit = generate_text_for_edit($pmwelcome_post_text, $pmwelcome_text_uid, $pmwelcome_text_flags);
 		}
+
+		$pmwelcome_edit = generate_text_for_edit($pmwelcome_post_text, $pmwelcome_text_uid, $pmwelcome_text_flags);
 
 		$this->template->assign_vars(array(
 			'PMWELCOME_ERROR'			=> (sizeof($error)) ? implode('<br />', $error) : false,
@@ -271,6 +272,7 @@ class admin_controller
 
 		return (int) $sender_max_id;
 	}
+
 	/**
 	 * Set page url
 	 *
