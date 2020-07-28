@@ -26,11 +26,6 @@ use apwa\pmwelcome\core\pmwelcome as pmwelcome;
 
 class admin_controller
 {
-	/**
-	 * sender data
-	 */
-	private $sender_info = array();
-
 	/** @var \phpbb\config\config */
 	protected $config;
 
@@ -224,6 +219,8 @@ class admin_controller
 
 			'PMWELCOME_USER'			=> $this->request->variable('pmwelcome_user', $this->config['pmwelcome_user']),
 			'PMWELCOME_SUBJECT'			=> $pmwelcome_subject,
+
+			'L_BUY_ME_A_BEER_EXPLAIN'		=> $this->language->lang('BUY ME A BEER_EXPLAIN', '<a href="' . $this->language->lang('BUY_ME_A_BEER_URL') . '" target="_blank" rel=”noreferrer noopener”>', '</a>'),
 
 			'S_BBCODE_ALLOWED'		=> true,
 			'S_SMILIES_ALLOWED'		=> true,
