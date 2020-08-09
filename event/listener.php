@@ -95,19 +95,65 @@ class listener implements EventSubscriberInterface
 	/**
 	* user_active_flip_before
 	* @param $event		the event object
-	* Used when activation is set By Admin
+	* Used when activation is set By Admin or user email
 	*/
 	public function user_active_flip_before($event)
 	{
 		$reason = $event['reason'];
 
-		$user_id_ary = $event['user_id_ary'];
-
-		// we don't care about mode just those that registered and are inactive (ACTIVATION BY ADMIN)
-		if ($reason == INACTIVE_MANUAL && $this->check_for_items())
+		if (!$this->check_for_items() || $reason != INACTIVE_MANUAL)
 		{
-			$this->user_welcome($user_id_ary);
+			return false;
 		}
+
+		$sql_statements = $event['sql_statements'];
+
+		$user_ids = array_keys($sql_statements);
+
+		$already_pmed = $this->check_user($user_ids);
+
+		foreach ($sql_statements as $user_id => $sql_ary)
+		{
+			if (!array_key_exists($user_id, $already_pmed))
+			{
+				$sql_ary += [
+					'user_pm_welcome'	=> true,
+				];
+				$sql_statements[$user_id] = $sql_ary;
+
+				$this->user_welcome($user_id);
+			}
+		}
+
+		$event['sql_statements'] = $sql_statements;
+	}
+
+	/**
+	* add entry to users table so the user doesn't get pm welcome upon deactivation and reactivation
+	* @param $user_id		the user_id passed from user_active_flip_before
+	* Used when activation is set By Admin
+	* return Bool
+	*/
+	private function check_user($user_id_arry)
+	{
+		if (!is_array($user_id_arry))
+		{
+			$user_id_arry = [$user_id_arry];
+		}
+
+		$sql = 'SELECT user_id, user_pm_welcome
+			FROM ' . USERS_TABLE . '
+			WHERE ' . $this->db->sql_in_set('user_id', $user_id_arry) . ' AND user_pm_welcome = 1';
+		$result = $this->db->sql_query($sql);
+
+		$already_pmed = [];
+		while ($row = $this->db->sql_fetchrow($result))
+		{
+			$already_pmed[$row['user_id']] = (int) $row['user_pm_welcome'];
+		}
+		$this->db->sql_freeresult($result);
+
+		return $already_pmed;
 	}
 
 	/**
