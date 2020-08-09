@@ -71,7 +71,6 @@ class listener implements EventSubscriberInterface
 	{
 		return array(
 			'core.user_add_after'		=> 'pm_welcome',
-			'core.ucp_activate_after'	=> 'pm_activate_welcome',
 			'core.user_active_flip_before'	=> 'user_active_flip_before',
 		);
 	}
@@ -88,23 +87,6 @@ class listener implements EventSubscriberInterface
 		if ($user_row['user_type'] == USER_NORMAL && $this->check_for_items())
 		{
 			$user_to = $event['user_id'];
-
-			$this->user_welcome($user_to);
-		}
-	}
-
-	/**
-	* pm_activate_welcome
-	* @param $event		the event object
-	* Used when user registration is set to user verification
-	*/
-	public function pm_activate_welcome($event)
-	{
-		$user_row = $event['user_row'];
-
-		if ($user_row['user_inactive_reason'] == INACTIVE_REGISTER && !$user_row['user_newpasswd'] && $this->check_for_items())
-		{
-			$user_to = $user_row['user_id'];
 
 			$this->user_welcome($user_to);
 		}
