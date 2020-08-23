@@ -130,7 +130,7 @@ class listener implements EventSubscriberInterface
 
 	/**
 	* add entry to users table so the user doesn't get pm welcome upon deactivation and reactivation
-	* @param $user_id		the user_id passed from user_active_flip_before
+	* @param $user_id_arry		the user_id passed from user_active_flip_before
 	* Used when activation is set By Admin
 	* return Bool
 	*/

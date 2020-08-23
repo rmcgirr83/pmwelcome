@@ -1,13 +1,13 @@
 {% if AJAX_SENDER_LINK %}
 <script>
-var AJAX_SENDER_LINK = "{{ AJAX_SENDER_LINK }}";
+var AJAX_SENDER_LINK = "{{ AJAX_SENDER_LINK|escape('js') }}";
 var ERROR = "{{ lang('ACP_PMWELCOME_NO_USER')|escape('js') }}";
 (function($) { // Avoid conflicts with other libraries
 	'use strict';
 	$("#pmwelcome_user").change(function () {
-		var userId = $(this).val();
+		var user_id = $(this).val();
         $.ajax({
-            url: AJAX_SENDER_LINK.replace("USER_ID", userId),
+            url: AJAX_SENDER_LINK.replace(/\_info\/[0-9]*/g, "_info/" + user_id),
 			dataType: 'text',
 			success: function(data){
 				var json = $.parseJSON(data);

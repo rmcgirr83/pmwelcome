@@ -223,7 +223,7 @@ class admin_controller
 			'PMWELCOME_USER'			=> $this->request->variable('pmwelcome_user', $this->config['pmwelcome_user']),
 			'PMWELCOME_SUBJECT'			=> $pmwelcome_subject,
 
-			'L_BUY_ME_A_BEER_EXPLAIN'		=> $this->language->lang('BUY ME A BEER_EXPLAIN', '<a href="' . $this->language->lang('BUY_ME_A_BEER_URL') . '" target="_blank" rel=”noreferrer noopener”>', '</a>'),
+			'L_BUY_ME_A_BEER_EXPLAIN'		=> $this->language->lang('BUY ME A BEER_EXPLAIN', '<a href="https://paypal.me/RMcGirr83" target="_blank" rel=”noreferrer noopener”>', '</a>'),
 
 			'S_BBCODE_ALLOWED'		=> true,
 			'S_SMILIES_ALLOWED'		=> true,
@@ -231,7 +231,7 @@ class admin_controller
 			'S_BBCODE_FLASH'		=> false,
 			'S_LINKS_ALLOWED'		=> true,
 
-			'AJAX_SENDER_LINK'		=> $this->helper->route('apwa_pmwelcome_senderinfo', array('user_id' => 'USER_ID')),
+			'AJAX_SENDER_LINK'		=> $this->helper->route('apwa_pmwelcome_senderinfo', array('user_id' => (int) $this->config['pmwelcome_user'])),
 
 			'U_ACTION'				=> $this->u_action,
 		));
