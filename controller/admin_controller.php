@@ -108,11 +108,6 @@ class admin_controller
 		$this->pmwelcome = $pmwelcome;
 		$this->phpbb_root_path = $phpbb_root_path;
 		$this->php_ext = $php_ext;
-
-		if (!function_exists('display_custom_bbcodes'))
-		{
-			include($this->phpbb_root_path . 'includes/functions_display.' . $this->php_ext);
-		}
 	}
 
 	public function display_options()
@@ -223,8 +218,6 @@ class admin_controller
 			'PMWELCOME_USER'			=> $this->request->variable('pmwelcome_user', $this->config['pmwelcome_user']),
 			'PMWELCOME_SUBJECT'			=> $pmwelcome_subject,
 
-			'L_BUY_ME_A_BEER_EXPLAIN'		=> $this->language->lang('BUY ME A BEER_EXPLAIN', '<a href="https://paypal.me/RMcGirr83" target="_blank" rel=”noreferrer noopener”>', '</a>'),
-
 			'S_BBCODE_ALLOWED'		=> true,
 			'S_SMILIES_ALLOWED'		=> true,
 			'S_BBCODE_IMG'			=> true,
@@ -235,6 +228,11 @@ class admin_controller
 
 			'U_ACTION'				=> $this->u_action,
 		));
+
+		if (!function_exists('display_custom_bbcodes'))
+		{
+			include($this->phpbb_root_path . 'includes/functions_display.' . $this->php_ext);
+		}
 		// Assigning custom bbcodes
 		display_custom_bbcodes();
 	}

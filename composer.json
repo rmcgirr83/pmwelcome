@@ -2,9 +2,8 @@
     "name": "apwa/pmwelcome",
     "type": "phpbb-extension",
     "description": "Welcome PM for registration and activation",
-    "homepage": "http://phpbbguru.net",
-    "version": "1.2.7",
-    "time": "2020-08-23",
+    "version": "1.2.8",
+    "time": "2020-08-25",
     "license": "GPL-2.0-only",
     "authors": [
         {
