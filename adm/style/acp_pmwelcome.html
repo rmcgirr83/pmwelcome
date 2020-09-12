@@ -14,7 +14,7 @@
 <p>{{ lang('ACP_PMWELCOME_EXPLAIN') }}</p>
 <fieldset>
 	<dl>
-		<dt><label>{{ lang('BUY_ME_A_BEER') }}</label><br><span>{{ lang('BUY_ME_A_BEER_EXPLAIN') }}</span></dt>
+		<dt>{{ lang('BUY_ME_A_BEER') }}<br><span>{{ lang('BUY_ME_A_BEER_EXPLAIN') }}</span></dt>
 		<dd><a href="{{ lang('BUY_ME_A_BEER_URL') }}" target="_blank" rel="noreferrer noopener"><img src="{{ lang('PAYPAL_IMAGE_URL') }}" border="0" alt="{{ lang('PAYPAL_ALT') }}" style="cursor:pointer;margin-top:15px;"></a></dd>
 	</dl>
 </fieldset>
@@ -53,13 +53,13 @@
 <fieldset>
 	<legend></legend>
 		<dl>
-			<dt><label>{{ lang('ACP_PMWELCOME_SUBJECT') }}{{ lang('COLON') }}</label></dt>
+			<dt>{{ lang('ACP_PMWELCOME_SUBJECT') }}{{ lang('COLON') }}</dt>
 			<dd><input type="text" name="pmwelcome_subject" id="pmwelcome_subject" size="50" maxlength="255" value="{{ PMWELCOME_SUBJECT }}" class="inputbox" /></dd>
 		</dl>
 		<dl>
-			<dt><label>{{ lang('ACP_PMWELCOME_USER') }}{{ lang('COLON') }}</label><br>
+			<dt>{{ lang('ACP_PMWELCOME_USER') }}{{ lang('COLON') }}<br>
 			<span>{{ lang('ACP_PMWELCOME_USER_EXPLAIN') }}</span></dt>
-			<dd><input id="pmwelcome_user" name="pmwelcome_user" type="number" min="2" max="{SENDER_MAX}" value="{PMWELCOME_USER}"> <span id="sender_link">{SENDER_LINK}</span></dd>
+			<dd><input id="pmwelcome_user" name="pmwelcome_user" type="number" min="2" max="{{ SENDER_MAX }}" value="{{ PMWELCOME_USER }}"> <span id="sender_link">{{ SENDER_LINK }}</span></dd>
 		</dl>
 </fieldset>
 
