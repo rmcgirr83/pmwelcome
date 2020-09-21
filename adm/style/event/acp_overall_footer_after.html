@@ -13,11 +13,11 @@ var ERROR = "{{ lang('ACP_PMWELCOME_NO_USER')|escape('js') }}";
 				var json = $.parseJSON(data);
 				if (json.error)
 				{
-					$('#sender_link').html(+ERROR+).show();
+					$('#sender_link').html(ERROR).show();
 				}
 				else
 				{
-					$('#sender_link').html(+json.sender_link+).show();
+					$('#sender_link').html(json.sender_link).show();
 				}
 			}
 		});

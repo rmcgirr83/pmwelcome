@@ -16,6 +16,11 @@ class v_1_2_0_schema extends \phpbb\db\migration\migration
 		return $this->db_tools->sql_column_exists($this->table_prefix . 'users', 'user_pm_welcome');
 	}
 
+	static public function depends_on()
+	{
+		return ['\apwa\pmwelcome\migrations\v_1_0_1'];
+	}
+
 	public function update_schema()
 	{
 		return [
