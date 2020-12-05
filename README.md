@@ -10,8 +10,6 @@ Sends a personal welcome message to user upon registration. Will send a private 
 
 Link for settings for the extension will show on the General tab under Board Configuration (Welcome Message)
 
-[![Build Status](https://travis-ci.com/rmcgirr83/pmwelcome.svg?branch=master)](https://travis-ci.com/rmcgirr83/pmwelcome)
-
 ## Installation
 
 ### 1. clone
