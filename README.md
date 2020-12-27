@@ -1,5 +1,5 @@
-Private Message Welcome
-===============
+# Private Message Welcome
+
 
 phpBB Private Message Welcome
 
@@ -9,6 +9,8 @@ Sends a personal welcome message to user upon registration. Will send a private 
 3. By Admin
 
 Link for settings for the extension will show on the General tab under Board Configuration (Welcome Message)
+
+[![Build Status](https://github.com/rmcgirr83/pmwelcome/workflows/Tests/badge.svg)](https://github.com/rmcgirr83/pmwelcome/actions)
 
 ## Installation
 
