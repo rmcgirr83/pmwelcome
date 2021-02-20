@@ -14,8 +14,8 @@ namespace apwa\pmwelcome\controller;
 * ignore
 */
 use phpbb\config\config;
-use phpbb\config\db_text;
-use phpbb\db\driver\driver_interface;
+use phpbb\config\db_text as config_text;
+use phpbb\db\driver\driver_interface as db;
 use phpbb\controller\helper;
 use phpbb\language\language;
 use phpbb\log\log;
@@ -26,38 +26,38 @@ use apwa\pmwelcome\core\pmwelcome as pmwelcome;
 
 class admin_controller
 {
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/** @var \phpbb\config\db_text */
+	/** @var config_text */
 	protected $config_text;
 
-	/** @var \phpbb\db\driver\driver_interface */
+	/** @var db */
 	protected $db;
 
-	/** @var \phpbb\controller\helper */
+	/** @var helper */
 	protected $helper;
 
-	/** @var \phpbb\language\language */
+	/** @var language */
 	protected $language;
 
-	/** @var \phpbb\log\log */
+	/** @var log */
 	protected $log;
 
-	/** @var \phpbb\request\request */
+	/** @var request */
 	protected $request;
 
-	/** @var \phpbb\template\template */
+	/** @var template */
 	protected $template;
 
-	/** @var \phpbb\user */
+	/** @var user */
 	protected $user;
 
 	/* @var pmwelcome */
 	protected $pmwelcome;
 
-	/** @var string phpBB root path */
-	protected $phpbb_root_path;
+	/** @var string root path */
+	protected $root_path;
 
 	/** @var string phpEx */
 	protected $php_ext;
@@ -68,24 +68,24 @@ class admin_controller
 	/**
 	* Constructor
 	*
-	* @param \phpbb\config\config									$config				Config object
-	* @param \phpbb\config\db_text 									$config_text		Config text object
-	* @param \phpbb\db\driver\driver_interface						$db					Database object
-	* @param helper													$helper				Controller helper object
-	* @param \phpbb\language\language								$language			Language object
-	* @param \phpbb\log\log											$log				Log object
-	* @param \phpbb\request\request									$request			Request object
-	* @param \phpbb\template\template								$template			Template object
-	* @param \phpbb\user											$user				User object
-	* @param pmwelcome												$pmwelcome			Methods for the extension
-	* @param string													$phpbb_root_path	phpBB root path
-	* @param string													$php_ext			phpEx
+	* @param config						$config				Config object
+	* @param config_text				$config_text		Config text object
+	* @param db							$db					Database object
+	* @param helper						$helper				Controller helper object
+	* @param language					$language			Language object
+	* @param log						$log				Log object
+	* @param request					$request			Request object
+	* @param template					$template			Template object
+	* @param user						$user				User object
+	* @param pmwelcome					$pmwelcome			Methods for the extension
+	* @param string						$root_path			phpBB root path
+	* @param string						$php_ext			phpEx
 	* @access public
 	*/
 	public function __construct(
 			config $config,
-			db_text $config_text,
-			driver_interface $db,
+			config_text $config_text,
+			db $db,
 			helper $helper,
 			language $language,
 			log $log,
@@ -93,8 +93,8 @@ class admin_controller
 			template $template,
 			user $user,
 			pmwelcome $pmwelcome,
-			$phpbb_root_path,
-			$php_ext)
+			string $root_path,
+			string $php_ext)
 	{
 		$this->config = $config;
 		$this->config_text = $config_text;
@@ -106,7 +106,7 @@ class admin_controller
 		$this->template = $template;
 		$this->user = $user;
 		$this->pmwelcome = $pmwelcome;
-		$this->phpbb_root_path = $phpbb_root_path;
+		$this->root_path = $root_path;
 		$this->php_ext = $php_ext;
 	}
 
@@ -140,7 +140,7 @@ class admin_controller
 		}
 		else
 		{
-			$user_link = '<a href="' . append_sid("{$this->phpbb_root_path}memberlist.$this->php_ext", 'mode=viewprofile&amp;u=' . $sender_info['user_id']) . '" target="_blank">' . $sender_info['username'] . '</a>';
+			$user_link = '<a href="' . append_sid("{$this->root_path}memberlist.$this->php_ext", 'mode=viewprofile&amp;u=' . $sender_info['user_id']) . '" target="_blank">' . $sender_info['username'] . '</a>';
 		}
 
 		$pmwelcome_subject = $this->request->variable('pmwelcome_subject', $this->config['pmwelcome_subject'], true);
@@ -231,7 +231,7 @@ class admin_controller
 
 		if (!function_exists('display_custom_bbcodes'))
 		{
-			include($this->phpbb_root_path . 'includes/functions_display.' . $this->php_ext);
+			include($this->root_path . 'includes/functions_display.' . $this->php_ext);
 		}
 		// Assigning custom bbcodes
 		display_custom_bbcodes();

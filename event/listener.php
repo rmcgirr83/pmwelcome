@@ -13,8 +13,8 @@ namespace apwa\pmwelcome\event;
 * ignore
 */
 use phpbb\config\config;
-use phpbb\config\db_text;
-use phpbb\db\driver\driver_interface;
+use phpbb\config\db_text as config_text;
+use phpbb\db\driver\driver_interface as db;
 use phpbb\user;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -22,20 +22,20 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class listener implements EventSubscriberInterface
 {
 
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/** @var \phpbb\config\db_text */
+	/** @var config_text */
 	protected $config_text;
 
-	/** @var \phpbb\db\driver\driver_interface */
+	/** @var db */
 	protected $db;
 
-	/** @var \phpbb\user */
+	/** @var user */
 	protected $user;
 
-	/** @var string phpbb_root_path */
-	protected $phpbb_root_path;
+	/** @var string root_path */
+	protected $root_path;
 
 	/** @var string phpEx */
 	protected $php_ext;
@@ -43,27 +43,27 @@ class listener implements EventSubscriberInterface
 	/**
 	* Constructor
 	*
-	* @param \phpbb\config\config									$config				Config object
-	* @param \phpbb\config\db_text 									$config_text		Config text object
-	* @param \phpbb\db\driver\driver_interface						$db					Database object
-	* @param \phpbb\user											$user				User object
-	* @param string													$phpbb_root_path	phpBB root path
-	* @param string													$php_ext			phpEx
+	* @param config					$config				Config object
+	* @param config_text			$config_text		Config text object
+	* @param db						$db					Database object
+	* @param user					$user				User object
+	* @param string					$root_path			phpBB root path
+	* @param string					$php_ext			phpEx
 	* @access public
 	*/
 	public function __construct(
 		config $config,
-		db_text $config_text,
-		driver_interface $db,
+		config_text $config_text,
+		db $db,
 		user $user,
-		$phpbb_root_path,
-		$php_ext)
+		string $root_path,
+		string $php_ext)
 	{
 		$this->config = $config;
 		$this->config_text = $config_text;
 		$this->db = $db;
 		$this->user = $user;
-		$this->phpbb_root_path = $phpbb_root_path;
+		$this->root_path = $root_path;
 		$this->php_ext = $php_ext;
 	}
 
@@ -190,7 +190,7 @@ class listener implements EventSubscriberInterface
 
 		if (!function_exists('submit_pm'))
 		{
-			include($this->phpbb_root_path . 'includes/functions_privmsgs.' . $this->php_ext);
+			include($this->root_path . 'includes/functions_privmsgs.' . $this->php_ext);
 		}
 
 		$pm_data = [

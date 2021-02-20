@@ -9,14 +9,14 @@
 
 namespace apwa\pmwelcome\core;
 
-use phpbb\db\driver\driver_interface;
+use phpbb\db\driver\driver_interface as db;
 use phpbb\language\language;
 use phpbb\request\request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class pmwelcome
 {
-	/** @var driver_interface */
+	/** @var db */
 	protected $db;
 
 	/** @var language */
@@ -25,7 +25,7 @@ class pmwelcome
 	/** @var request */
 	protected $request;
 
-	/** @var string phpBB root path */
+	/** @var string root path */
 	protected $root_path;
 
 	/** @var string phpEx */
@@ -35,8 +35,8 @@ class pmwelcome
 		driver_interface $db,
 		language $language,
 		request $request,
-		$root_path,
-		$php_ext)
+		string $root_path,
+		string $php_ext)
 	{
 		$this->db = $db;
 		$this->language = $language;
