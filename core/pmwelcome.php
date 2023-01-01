@@ -32,7 +32,7 @@ class pmwelcome
 	protected $php_ext;
 
 	public function __construct(
-		driver_interface $db,
+		db $db,
 		language $language,
 		request $request,
 		string $root_path,
