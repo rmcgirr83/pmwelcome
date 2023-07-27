@@ -171,6 +171,15 @@ class admin_controller
 
 			if (empty($error) && $this->request->is_set_post('submit'))
 			{
+				generate_text_for_storage(
+					$pmwelcome_post_text,
+					$pmwelcome_text_uid	,
+					$pmwelcome_text_bitfield,
+					$pmwelcome_text_flags,
+					!$this->request->variable('disable_bbcode', false),
+					!$this->request->variable('disable_magic_url', false),
+					!$this->request->variable('disable_smilies', false)
+				);
 				$this->config_text->set_array(array(
 					'pmwelcome_post_text'		=> $pmwelcome_post_text,
 					'pmwelcome_text_bitfield'	=> $pmwelcome_text_bitfield,
