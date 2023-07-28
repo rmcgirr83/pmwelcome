@@ -186,7 +186,6 @@ class listener implements EventSubscriberInterface
 
 		// change the wording of the message if so desired
 		$pmwelcome_text = str_replace('{SENDER}', $this->config['pmwelcome_sender'], $pmwelcome_text);
-		generate_text_for_storage($pmwelcome_text, $uid, $bitfield, $flags, $allow_bbcode, $allow_urls, $allow_smilies);
 
 		if (!function_exists('submit_pm'))
 		{

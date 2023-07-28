@@ -35,8 +35,6 @@ class pmwelcome_module
 				// Load the display options handle in the admin controller
 				$admin_controller->display_options();
 			break;
-
 		}
-
 	}
 }

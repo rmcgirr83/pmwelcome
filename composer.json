@@ -2,8 +2,8 @@
     "name": "apwa/pmwelcome",
     "type": "phpbb-extension",
     "description": "Welcome PM for registration and activation",
-    "version": "1.2.13",
-    "time": "2023-07-27",
+    "version": "1.3.0",
+    "time": "2023-07-28",
     "license": "GPL-2.0-only",
     "authors": [
         {

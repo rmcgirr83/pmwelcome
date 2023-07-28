@@ -17,7 +17,7 @@ class pmwelcome_info
 		return array(
 			'filename'	=> '\apwa\pmwelcome\acp\pmwelcome_module',
 			'title'		=> 'ACP_PMWELCOME',
-			'version'	=> '1.2.0',
+			'version'	=> '1.3.0',
 			'modes'	=> array(
 				'settings'	=> array('title' => 'ACP_PMWELCOME_SETTINGS', 'auth' => 'ext_apwa/pmwelcome && acl_a_board', 'cat' => array('ACP_BOARD_CONFIGURATION')),
 			),

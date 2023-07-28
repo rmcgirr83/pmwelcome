@@ -173,7 +173,7 @@ class admin_controller
 			{
 				generate_text_for_storage(
 					$pmwelcome_post_text,
-					$pmwelcome_text_uid	,
+					$pmwelcome_text_uid,
 					$pmwelcome_text_bitfield,
 					$pmwelcome_text_flags,
 					!$this->request->variable('disable_bbcode', false),
@@ -187,9 +187,9 @@ class admin_controller
 					'pmwelcome_text_flags'		=> $pmwelcome_text_flags,
 				));
 
+				$this->config->set('pmwelcome_subject', utf8_encode_ucr($pmwelcome_subject));
 				$this->config->set('pmwelcome_sender', (string) $sender_info['username']);
 				$this->config->set('pmwelcome_user', (int) $sender_info['user_id']);
-				$this->config->set('pmwelcome_subject', $pmwelcome_subject);
 
 				// and an entry into the log table
 				$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'LOG_PMWELCOME_CONFIG_UPDATE');
@@ -205,7 +205,7 @@ class admin_controller
 			$pmwelcome_text_preview = (!isset($sender_info['error'])) ? str_replace('{SENDER}', $sender_info['username'], $pmwelcome_post_text) : $pmwelcome_post_text;
 			generate_text_for_storage(
 				$pmwelcome_text_preview,
-				$pmwelcome_text_uid	,
+				$pmwelcome_text_uid,
 				$pmwelcome_text_bitfield,
 				$pmwelcome_text_flags,
 				!$this->request->variable('disable_bbcode', false),
